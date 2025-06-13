@@ -82,7 +82,9 @@ import NetworkOverrideWidget from '../components/NetworkOverrideWidget.vue'
                 <li>📺 Check browser console for widget initialization logs</li>
                 <li>🔄 Refresh the page if needed</li>
               </ol>
-              <button @click="forceRefresh" class="debug-button">🔄 Force Page Refresh</button>
+              <div class="button-wrapper">
+                <button @click="forceRefresh" class="debug-button">🔄 Force Page Refresh</button>
+              </div>
             </div>
           </div>
         </section>
@@ -295,6 +297,7 @@ $shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.15);
 .debug-section {
   @include section-base;
   margin-top: 24px;
+  text-align: left;
 
   h4 {
     color: $text-primary;
@@ -315,6 +318,11 @@ $shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.15);
     margin-bottom: 8px;
     color: $text-muted;
     line-height: 1.5;
+  }
+
+  .button-wrapper {
+    text-align: center;
+    margin-top: 20px;
   }
 }
 

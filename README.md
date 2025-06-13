@@ -139,8 +139,9 @@ src/
 │   ├── NetworkOverrideTool.vue      # Core override tool implementation
 │   └── SimpleNetworkOverride.vue    # Core override functionality
 ├── views/
-│   ├── HomeView.vue                 # Standard app view
-│   └── WidgetView.vue              # Widget demo page
+│   ├── WidgetView.vue              # Main widget demo page (root route)
+│   ├── EmbeddedView.vue           # Embedded widget view
+│   └── AboutView.vue              # About page
 ├── router/
 │   └── index.js                    # Routes (/widget as root)
 ├── styles/                         # Global styles and theme configuration
