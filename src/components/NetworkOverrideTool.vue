@@ -496,57 +496,91 @@ defineExpose({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// Variables
+$primary-color: #0ea5e9;
+$success-color: #10b981;
+$danger-color: #dc2626;
+$border-color: #e5e7eb;
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$background-light: #f9fafb;
+$background-white: #ffffff;
+
+// Mixins
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin button-base {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin card-base {
+  background: $background-white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
 .network-override-tool {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: white;
+  background: $background-white;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-}
+  width: 100%;
+  max-width: 1200px;
 
-.network-override-tool.embedded {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 400px;
-  max-height: 80vh;
-  overflow-y: auto;
-  z-index: 10000;
-  border: 2px solid #0ea5e9;
+  &.embedded {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 10000;
+    border: 2px solid $primary-color;
+  }
 }
 
 .tool-header {
-  background: #0ea5e9;
+  background: $primary-color;
   color: white;
   padding: 16px;
   border-radius: 8px 8px 0 0;
-}
 
-.tool-header h2 {
-  margin: 0 0 8px 0;
-  font-size: 18px;
-}
+  h2 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+  }
 
-.tool-header p {
-  margin: 0;
-  opacity: 0.9;
-  font-size: 14px;
+  p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 14px;
+  }
 }
 
 .toggle-btn {
+  @include button-base;
   background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: none;
   padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
   margin-top: 12px;
   width: 100%;
-}
 
-.toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
 }
 
 .tool-content {
@@ -554,50 +588,45 @@ defineExpose({
 }
 
 .status-bar {
+  @include flex-between;
   background: #fee2e2;
   border: 1px solid #fecaca;
   border-radius: 6px;
   padding: 12px;
   margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .status-indicator {
-  color: #dc2626;
+  color: $danger-color;
   font-weight: bold;
   font-size: 14px;
 }
 
 .quick-clear {
-  background: #dc2626;
-  color: white;
-  border: none;
+  @include button-base;
+  background: $danger-color;
   padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
   font-size: 12px;
 }
 
 .monitor-section {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: $background-light;
+  border: 1px solid $border-color;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
-}
 
-.monitor-section h3 {
-  margin: 0 0 16px 0;
-  color: #111827;
-  font-size: 16px;
+  h3 {
+    margin: 0 0 16px 0;
+    color: $text-primary;
+    font-size: 16px;
+  }
 }
 
 .empty-state {
   text-align: center;
   padding: 30px;
-  color: #6b7280;
+  color: $text-secondary;
 }
 
 .requests-list {
@@ -606,12 +635,10 @@ defineExpose({
 }
 
 .request-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   padding: 8px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: $background-white;
+  border: 1px solid $border-color;
   border-radius: 4px;
   margin-bottom: 4px;
   font-size: 12px;
@@ -622,6 +649,7 @@ defineExpose({
   gap: 8px;
   align-items: center;
   flex: 1;
+  overflow: hidden;
 }
 
 .method {
@@ -631,6 +659,7 @@ defineExpose({
   border-radius: 3px;
   font-size: 10px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .url {
@@ -644,85 +673,106 @@ defineExpose({
 }
 
 .status {
-  background: #10b981;
+  background: $success-color;
   color: white;
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 10px;
+  white-space: nowrap;
 }
 
 .timestamp {
-  color: #6b7280;
+  color: $text-secondary;
   font-size: 10px;
   min-width: 60px;
+  white-space: nowrap;
+}
+
+.request-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 8px;
 }
 
 .override-btn {
-  background: #059669;
-  color: white;
-  border: none;
+  @include button-base;
+  background: $success-color;
   padding: 4px 8px;
-  border-radius: 3px;
-  cursor: pointer;
   font-size: 10px;
-}
 
-.override-btn.active {
-  background: #dc2626;
+  &.active {
+    background: $danger-color;
+  }
 }
 
 .override-section {
-  background: #fefefe;
-  border: 2px solid #e5e7eb;
+  background: $background-white;
+  border: 2px solid $border-color;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
-}
 
-.override-section h3 {
-  margin: 0 0 16px 0;
-  color: #111827;
-  font-size: 16px;
+  h3 {
+    margin: 0 0 16px 0;
+    color: $text-primary;
+    font-size: 16px;
+  }
 }
 
 .tabs {
   display: flex;
   margin-bottom: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid $border-color;
+
+  button {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    color: $text-secondary;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.active {
+      border-bottom-color: $primary-color;
+      color: $primary-color;
+      font-weight: bold;
+    }
+  }
 }
 
-.tabs button {
-  padding: 8px 16px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  font-size: 14px;
+.tab-content {
+  background: $background-light;
+  border-radius: 6px;
+  padding: 16px;
 }
 
-.tabs button.active {
-  border-bottom-color: #0ea5e9;
-  color: #0ea5e9;
-  font-weight: bold;
-}
+.section-header {
+  margin-bottom: 16px;
 
-.section-header h4 {
-  margin: 0 0 4px 0;
-  color: #111827;
-  font-size: 14px;
-  font-weight: bold;
+  h4 {
+    margin: 0 0 4px 0;
+    color: $text-primary;
+    font-size: 14px;
+    font-weight: bold;
+  }
 }
 
 .section-subtitle {
   margin: 0 0 12px 0;
-  color: #6b7280;
+  color: $text-secondary;
   font-size: 12px;
   font-style: italic;
 }
 
 .json-display {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: $background-white;
+  border: 1px solid $border-color;
   border-radius: 6px;
   padding: 12px;
   font-size: 12px;
@@ -730,126 +780,153 @@ defineExpose({
   color: #000000;
   line-height: 1.4;
   overflow-x: auto;
-  max-height: 200px;
-  overflow-y: auto;
-  margin: 0;
+  white-space: pre;
 }
 
 .override-textarea {
   width: 100%;
-  min-height: 120px;
+  min-height: 200px;
   padding: 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid $border-color;
   border-radius: 6px;
   font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
   font-size: 12px;
-  color: #000000;
   line-height: 1.4;
   resize: vertical;
-  background: #ffffff;
-}
+  margin-bottom: 16px;
 
-.override-textarea:focus {
-  outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.1);
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+  }
 }
 
 .override-actions {
-  margin-top: 12px;
   display: flex;
-  gap: 8px;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .save-btn {
-  background: #059669;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-}
+  @include button-base;
+  background: $success-color;
+  padding: 8px 16px;
+  font-size: 14px;
 
-.save-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .remove-btn {
-  background: #dc2626;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
+  @include button-base;
+  background: $danger-color;
+  padding: 8px 16px;
+  font-size: 14px;
 }
 
 .json-status {
-  margin-top: 8px;
-}
+  margin-top: 12px;
+  font-size: 14px;
 
-.json-status .status.valid {
-  color: #059669;
-  font-weight: bold;
-  font-size: 12px;
-}
+  .status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
 
-.json-status .status.invalid {
-  color: #dc2626;
-  font-weight: bold;
-  font-size: 12px;
+    &.valid {
+      background: rgba($success-color, 0.1);
+      color: $success-color;
+    }
+
+    &.invalid {
+      background: rgba($danger-color, 0.1);
+      color: $danger-color;
+    }
+  }
 }
 
 .saved-section {
-  background: #f0fdf4;
-  border: 1px solid #10b981;
+  background: $background-light;
+  border: 1px solid $border-color;
   border-radius: 8px;
-  padding: 16px;
+  padding: 20px;
+
+  h3 {
+    margin: 0 0 16px 0;
+    color: $text-primary;
+    font-size: 16px;
+  }
 }
 
-.saved-section h3 {
-  margin: 0 0 12px 0;
-  color: #111827;
-  font-size: 16px;
+.saved-overrides-list {
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .saved-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
-  background: #ecfdf5;
-  border: 1px solid #10b981;
+  @include flex-between;
+  padding: 12px;
+  background: $background-white;
+  border: 1px solid $border-color;
   border-radius: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .saved-info {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .saved-url {
   font-family: monospace;
-  color: #047857;
+  color: $text-primary;
   font-size: 12px;
-  font-weight: bold;
-  display: block;
 }
 
 .saved-filename {
-  font-size: 10px;
-  color: #6b7280;
-  font-family: monospace;
+  color: $text-secondary;
+  font-size: 11px;
 }
 
 .saved-status {
-  background: #10b981;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 10px;
-  font-weight: bold;
+  color: $success-color;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .network-override-tool {
+    &.embedded {
+      width: calc(100% - 32px);
+      bottom: 16px;
+      right: 16px;
+    }
+  }
+
+  .tool-content {
+    padding: 16px;
+  }
+
+  .request-info {
+    flex-wrap: wrap;
+  }
+
+  .url {
+    width: 100%;
+    order: -1;
+  }
+
+  .override-actions {
+    flex-direction: column;
+  }
+
+  .save-btn,
+  .remove-btn {
+    width: 100%;
+  }
 }
 </style>

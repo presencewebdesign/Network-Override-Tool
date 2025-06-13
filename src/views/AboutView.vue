@@ -4,9 +4,9 @@
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
+<style lang="scss" scoped>
+.about {
+  @media (min-width: 1024px) {
     min-height: 100vh;
     display: flex;
     align-items: center;

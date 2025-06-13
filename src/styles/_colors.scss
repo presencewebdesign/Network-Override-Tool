@@ -1,0 +1,56 @@
+//SimpleNetworkOverride.vue
+// Slate colors (grays)
+$color-white: #ffffff;
+$color-slate-50: #f8fafc;
+$color-slate-100: #f1f5f9;
+$color-slate-200: #e2e8f0;
+$color-slate-300: #cbd5e1;
+$color-slate-400: #94a3b8;
+$color-slate-500: #64748b;
+$color-slate-600: #475569;
+$color-slate-700: #334155;
+$color-slate-800: #1e293b;
+$color-slate-900: #0f172a;
+
+// Blue colors
+$color-blue-500: #3b82f6;
+$color-blue-600: #2563eb;
+$color-blue-700: #1d4ed8;
+$color-blue-800: #1e40af;
+$color-blue-900: #0c4a6e;
+$color-blue-light: #0ea5e9;
+
+// Purple colors
+$color-purple-500: #8b5cf6;
+$color-purple-600: #7c3aed;
+
+// Green colors
+$color-green-500: #10b981;
+$color-green-600: #059669;
+
+// Red colors
+$color-red-500: #ef4444;
+$color-red-600: #dc2626;
+$color-red-100: #fee2e2;
+$color-red-200: #fecaca;
+
+// Orange colors
+$color-orange-500: #f59e0b;
+$color-orange-600: #d97706;
+
+// Additional utility colors
+$color-black: #000000;
+$color-fe: #fefefe;
+$color-f3: #f3f4f6;
+
+//NetworkOverrideWidget.vue
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$background-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+$success-color: #10b981;
+$danger-color: #dc2626;
+$border-color: rgba(255, 255, 255, 0.3);
+$shadow-color: rgba(0, 0, 0, 0.15);
+$modal-shadow: rgba(0, 0, 0, 0.25);
+$scrollbar-track: rgba(241, 245, 249, 0.5);
+$scrollbar-thumb: rgba(203, 213, 225, 0.8);
+$scrollbar-thumb-hover: rgba(148, 163, 184, 0.9);

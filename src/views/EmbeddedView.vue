@@ -167,7 +167,47 @@ const loadComments = async () => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// Variables
+$text-primary: #1e293b;
+$text-secondary: #374151;
+$text-muted: #6b7280;
+$border-light: #e2e8f0;
+$border-gray: #e5e7eb;
+$border-blue: #0ea5e9;
+$border-yellow: #eab308;
+$bg-light: #f8fafc;
+$bg-blue: #f0f9ff;
+$bg-yellow: #fefce8;
+$bg-red: #fef2f2;
+$blue-primary: #3b82f6;
+$blue-hover: #2563eb;
+$success-color: #10b981;
+$danger-color: #dc2626;
+$blue-dark: #0c4a6e;
+$yellow-dark: #92400e;
+
+// Mixins
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin section-base {
+  border-radius: 8px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+@mixin badge-base {
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 .embedded-demo {
   margin: 0 auto;
   padding: 20px;
@@ -175,16 +215,14 @@ const loadComments = async () => {
 }
 
 .sample-app {
-  background: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 24px;
-  margin: 24px 0;
-}
+  background: $bg-light;
+  border: 2px solid $border-light;
+  @include section-base;
 
-.sample-app h3 {
-  margin: 0 0 12px 0;
-  color: #1e293b;
+  h3 {
+    margin: 0 0 12px 0;
+    color: $text-primary;
+  }
 }
 
 .app-content {
@@ -202,7 +240,7 @@ const loadComments = async () => {
 }
 
 .app-btn {
-  background: #3b82f6;
+  background: $blue-primary;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -210,53 +248,43 @@ const loadComments = async () => {
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s;
-}
 
-.app-btn:hover:not(:disabled) {
-  background: #2563eb;
-}
+  &:hover:not(:disabled) {
+    background: $blue-hover;
+  }
 
-.app-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .data-display {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: $bg-light;
+  border: 1px solid $border-light;
   border-radius: 6px;
   padding: 16px;
 }
 
 .data-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   margin-bottom: 12px;
-}
 
-.data-header h4 {
-  margin: 0;
-  color: #1e293b;
+  h4 {
+    margin: 0;
+    color: $text-primary;
+  }
 }
 
 .override-badge {
-  background: #dc2626;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
+  @include badge-base;
+  background: $danger-color;
   animation: pulse 2s infinite;
 }
 
 .original-badge {
-  background: #10b981;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
+  @include badge-base;
+  background: $success-color;
 }
 
 @keyframes pulse {
@@ -270,67 +298,63 @@ const loadComments = async () => {
 }
 
 .override-notice {
-  background: #fef2f2;
+  background: $bg-red;
   border: 1px solid #fecaca;
   border-radius: 4px;
   padding: 8px 12px;
   margin-bottom: 12px;
-  color: #dc2626;
+  color: $danger-color;
   font-size: 14px;
   font-weight: 500;
 }
 
 .data-content {
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid $border-gray;
   border-radius: 4px;
   padding: 12px;
   max-height: 300px;
   overflow-y: auto;
-}
 
-.data-content pre {
-  margin: 0;
-  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #374151;
+  pre {
+    margin: 0;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: $text-secondary;
+  }
 }
 
 .instructions {
-  background: #f0f9ff;
-  border: 2px solid #0ea5e9;
-  border-radius: 8px;
-  padding: 24px;
-  margin: 24px 0;
-}
+  background: $bg-blue;
+  border: 2px solid $border-blue;
+  @include section-base;
 
-.instructions h3 {
-  margin: 0 0 16px 0;
-  color: #0c4a6e;
-}
+  h3 {
+    margin: 0 0 16px 0;
+    color: $blue-dark;
+  }
 
-.instructions ol {
-  margin: 0;
-  padding-left: 20px;
-}
+  ol {
+    margin: 0;
+    padding-left: 20px;
+  }
 
-.instructions li {
-  margin-bottom: 8px;
-  color: #1e293b;
+  li {
+    margin-bottom: 8px;
+    color: $text-primary;
+  }
 }
 
 .embed-instructions {
-  background: #fefce8;
-  border: 2px solid #eab308;
-  border-radius: 8px;
-  padding: 24px;
-  margin: 24px 0;
-}
+  background: $bg-yellow;
+  border: 2px solid $border-yellow;
+  @include section-base;
 
-.embed-instructions h3 {
-  margin: 0 0 16px 0;
-  color: #92400e;
+  h3 {
+    margin: 0 0 16px 0;
+    color: $yellow-dark;
+  }
 }
 
 .code-block {
@@ -338,44 +362,44 @@ const loadComments = async () => {
   border-radius: 6px;
   padding: 16px;
   margin: 12px 0;
-}
 
-.code-block h4 {
-  margin: 0 0 8px 0;
-  color: #374151;
-  font-size: 14px;
-}
+  h4 {
+    margin: 0 0 8px 0;
+    color: $text-secondary;
+    font-size: 14px;
+  }
 
-.code-block pre {
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  padding: 12px;
-  margin: 8px 0;
-  overflow-x: auto;
-}
+  pre {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 8px 0;
+    overflow-x: auto;
+  }
 
-.code-block code {
-  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
-  font-size: 12px;
-  color: #374151;
-}
+  code {
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 12px;
+    color: $text-secondary;
+  }
 
-.code-block ul {
-  margin: 8px 0;
-  padding-left: 20px;
-}
+  ul {
+    margin: 8px 0;
+    padding-left: 20px;
+  }
 
-.code-block li {
-  margin-bottom: 4px;
-  color: #6b7280;
-  font-size: 14px;
-}
+  li {
+    margin-bottom: 4px;
+    color: $text-muted;
+    font-size: 14px;
 
-.code-block li code {
-  background: #f3f4f6;
-  padding: 2px 4px;
-  border-radius: 2px;
-  color: #dc2626;
+    code {
+      background: #f3f4f6;
+      padding: 2px 4px;
+      border-radius: 2px;
+      color: $danger-color;
+    }
+  }
 }
 </style>

@@ -114,10 +114,55 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// Variables
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$test-area-gradient: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$text-muted: #475569;
+$border-light: #e2e8f0;
+$border-blue: #bfdbfe;
+$border-gray: #cbd5e1;
+$bg-light: #f8fafc;
+$bg-lighter: #f1f5f9;
+$bg-dark: #1e293b;
+$success-color: #10b981;
+$blue-dark: #1e40af;
+$blue-light: #3730a3;
+$shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.15);
+
+// Mixins
+@mixin button-base {
+  background: $primary-gradient;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+@mixin section-base {
+  background: $bg-light;
+  border: 1px solid $border-light;
+  border-radius: 8px;
+  padding: 20px;
+}
+
 .widget-demo {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: $primary-gradient;
   padding: 40px 20px;
 }
 
@@ -127,21 +172,21 @@ export default {
   background: white;
   border-radius: 16px;
   padding: 40px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-}
+  box-shadow: $shadow-lg;
 
-.demo-content h1 {
-  text-align: center;
-  color: #1e293b;
-  margin-bottom: 16px;
-  font-size: 36px;
-}
+  h1 {
+    text-align: center;
+    color: $text-primary;
+    margin-bottom: 16px;
+    font-size: 36px;
+  }
 
-.demo-content > p {
-  text-align: center;
-  color: #64748b;
-  font-size: 18px;
-  margin-bottom: 40px;
+  > p {
+    text-align: center;
+    color: $text-secondary;
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
 }
 
 .demo-sections {
@@ -150,167 +195,131 @@ export default {
 }
 
 .demo-section {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  @include section-base;
   padding: 24px;
-}
 
-.demo-section h2 {
-  color: #1e293b;
-  margin: 0 0 16px 0;
-  font-size: 24px;
-}
+  h2 {
+    color: $text-primary;
+    margin: 0 0 16px 0;
+    font-size: 24px;
+  }
 
-.demo-section ul {
-  margin: 0;
-  padding-left: 20px;
-}
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
 
-.demo-section li {
-  margin-bottom: 8px;
-  color: #475569;
-  line-height: 1.6;
+  li {
+    margin-bottom: 8px;
+    color: $text-muted;
+    line-height: 1.6;
+  }
 }
 
 .code-block {
-  background: #1e293b;
+  background: $bg-dark;
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
-}
 
-.code-block h3 {
-  color: #e2e8f0;
-  margin: 0 0 8px 0;
-  font-size: 16px;
-}
+  h3 {
+    color: $border-light;
+    margin: 0 0 8px 0;
+    font-size: 16px;
+  }
 
-.code-block pre {
-  margin: 0;
-  color: #10b981;
-  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
-  font-size: 14px;
-}
+  pre {
+    margin: 0;
+    color: $success-color;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 14px;
+  }
 
-.code-block p {
-  color: #94a3b8;
-  margin: 8px 0 0 0;
-  font-style: italic;
+  p {
+    color: #94a3b8;
+    margin: 8px 0 0 0;
+    font-style: italic;
+  }
 }
 
 .test-area {
-  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
-  border: 1px solid #bfdbfe;
+  background: $test-area-gradient;
+  border: 1px solid $border-blue;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
-}
 
-.test-area h3 {
-  color: #1e40af;
-  margin: 0 0 8px 0;
-}
+  h3 {
+    color: $blue-dark;
+    margin: 0 0 8px 0;
+  }
 
-.test-area p {
-  color: #3730a3;
-  margin: 0 0 16px 0;
+  p {
+    color: $blue-light;
+    margin: 0 0 16px 0;
+  }
 }
 
 .test-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.test-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+  @include button-base;
 }
 
 .instructions {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 20px;
+  @include section-base;
   margin-bottom: 24px;
-}
 
-.instructions h3 {
-  color: #1e293b;
-  margin: 0 0 12px 0;
-}
+  h3 {
+    color: $text-primary;
+    margin: 0 0 12px 0;
+  }
 
-.instructions ol {
-  margin: 0;
-  padding-left: 20px;
-}
+  ol {
+    margin: 0;
+    padding-left: 20px;
+  }
 
-.instructions li {
-  margin-bottom: 8px;
-  color: #475569;
-  line-height: 1.5;
+  li {
+    margin-bottom: 8px;
+    color: $text-muted;
+    line-height: 1.5;
+  }
 }
 
 .test-note {
-  color: #64748b;
+  color: $text-secondary;
   font-size: 14px;
   font-style: italic;
   margin-top: 12px;
 }
 
 .debug-section {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 20px;
+  @include section-base;
   margin-top: 24px;
-}
 
-.debug-section h4 {
-  color: #1e293b;
-  margin: 0 0 12px 0;
-}
+  h4 {
+    color: $text-primary;
+    margin: 0 0 12px 0;
+  }
 
-.debug-section p {
-  color: #475569;
-  margin: 0 0 16px 0;
-}
+  p {
+    color: $text-muted;
+    margin: 0 0 16px 0;
+  }
 
-.debug-section ol {
-  margin: 0;
-  padding-left: 20px;
-}
+  ol {
+    margin: 0;
+    padding-left: 20px;
+  }
 
-.debug-section li {
-  margin-bottom: 8px;
-  color: #475569;
-  line-height: 1.5;
+  li {
+    margin-bottom: 8px;
+    color: $text-muted;
+    line-height: 1.5;
+  }
 }
 
 .debug-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.debug-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+  @include button-base;
 }
 
 @media (max-width: 768px) {
@@ -320,10 +329,10 @@ export default {
 
   .demo-content {
     padding: 24px;
-  }
 
-  .demo-content h1 {
-    font-size: 28px;
+    h1 {
+      font-size: 28px;
+    }
   }
 }
 </style>

@@ -210,13 +210,40 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// Variables
+@import '../styles/colors';
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin floating-shadow {
+  box-shadow:
+    0 8px 25px $shadow-color,
+    0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+@mixin hover-shadow {
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.3),
+    0 0 0 5px rgba(102, 126, 234, 0.4);
+}
+
 .network-override-widget {
   position: fixed;
   z-index: 999999;
 }
 
-/* Debug info */
 .debug-info {
   position: fixed;
   top: 10px;
@@ -231,47 +258,42 @@ onMounted(async () => {
   border: 1px solid #333;
 }
 
-/* Floating Icon Styles */
 .floating-icon {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: $primary-gradient;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   cursor: pointer;
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.15),
-    0 0 0 3px rgba(102, 126, 234, 0.2);
+  @include floating-shadow;
   transition: all 0.3s ease;
   z-index: 1000000;
   animation: gentle-pulse 2s ease-in-out infinite;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
+  border: 2px solid $border-color;
 
-.floating-icon:hover {
-  transform: scale(1.15);
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.3),
-    0 0 0 5px rgba(102, 126, 234, 0.4);
-  animation: none;
-}
+  &:hover {
+    transform: scale(1.15);
+    @include hover-shadow;
+    animation: none;
 
-.floating-icon.has-activity {
-  animation:
-    bounce 0.6s ease-in-out,
-    gentle-pulse 2s ease-in-out infinite 0.6s;
+    .tooltip {
+      opacity: 1;
+    }
+  }
+
+  &.has-activity {
+    animation:
+      bounce 0.6s ease-in-out,
+      gentle-pulse 2s ease-in-out infinite 0.6s;
+  }
 }
 
 .icon-content {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
 .icon {
@@ -283,16 +305,14 @@ onMounted(async () => {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: #dc2626;
+  background: $danger-color;
   color: white;
   border-radius: 50%;
   width: 20px;
   height: 20px;
   font-size: 12px;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   border: 2px solid white;
 }
 
@@ -302,7 +322,7 @@ onMounted(async () => {
   right: -5px;
   width: 12px;
   height: 12px;
-  background: #10b981;
+  background: $success-color;
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -322,11 +342,6 @@ onMounted(async () => {
   transition: opacity 0.3s ease;
 }
 
-.floating-icon:hover .tooltip {
-  opacity: 1;
-}
-
-/* Fullscreen Modal Styles */
 .fullscreen-modal {
   position: fixed;
   top: 0;
@@ -334,9 +349,7 @@ onMounted(async () => {
   width: 100vw;
   height: 100vh;
   z-index: 1000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
 .modal-backdrop {
@@ -356,26 +369,24 @@ onMounted(async () => {
   max-width: 1400px;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px $modal-shadow;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .modal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: $primary-gradient;
   color: white;
   padding: 20px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   flex-shrink: 0;
-}
 
-.modal-header h2 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+  }
 }
 
 .modal-controls {
@@ -386,19 +397,18 @@ onMounted(async () => {
 .minimize-btn,
 .close-btn {
   background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid $border-color;
   color: white;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.2s ease;
-}
 
-.minimize-btn:hover,
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
 }
 
 .close-btn {
@@ -410,45 +420,39 @@ onMounted(async () => {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: $background-gradient;
   padding: 0;
   display: flex;
   flex-direction: column;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb;
+    border-radius: 4px;
+
+    &:hover {
+      background: $scrollbar-thumb-hover;
+    }
+  }
 }
 
-/* Smooth scrollbar styling */
-.modal-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-body::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.5);
-  border-radius: 4px;
-}
-
-.modal-body::-webkit-scrollbar-thumb {
-  background: rgba(203, 213, 225, 0.8);
-  border-radius: 4px;
-}
-
-.modal-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.9);
-}
-
-/* Animations */
 @keyframes gentle-pulse {
   0%,
   100% {
     transform: scale(1);
-    box-shadow:
-      0 8px 25px rgba(0, 0, 0, 0.15),
-      0 0 0 3px rgba(102, 126, 234, 0.2);
+    @include floating-shadow;
   }
   50% {
     transform: scale(1.1);
-    box-shadow:
-      0 12px 35px rgba(0, 0, 0, 0.25),
-      0 0 0 8px rgba(102, 126, 234, 0.4);
+    @include hover-shadow;
   }
 }
 
@@ -470,19 +474,18 @@ onMounted(async () => {
 @keyframes pulse {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    box-shadow: 0 0 0 0 rgba($success-color, 0.7);
   }
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 10px rgba($success-color, 0);
   }
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 0 rgba($success-color, 0);
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .modal-content {
     width: 98vw;
@@ -498,18 +501,6 @@ onMounted(async () => {
 
   .icon {
     font-size: 20px;
-  }
-
-  .modal-header {
-    padding: 16px 20px;
-  }
-
-  .modal-header h2 {
-    font-size: 20px;
-  }
-
-  .modal-body {
-    padding: 16px;
   }
 }
 </style>
