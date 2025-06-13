@@ -143,8 +143,9 @@ src/
 │   └── WidgetView.vue              # Widget demo page
 ├── router/
 │   └── index.js                    # Routes (/widget as root)
-└── assets/
-    └── main.css                    # Global styles
+├── styles/                         # Global styles and theme configuration
+├── assets/                         # Static assets
+└── main.js                         # Application entry point
 ```
 
 ## 🔧 Technical Details
