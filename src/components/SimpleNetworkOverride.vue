@@ -1510,14 +1510,18 @@ $primary-color: #0ea5e9;
     margin-top: 8px;
 
     .status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+
       &.valid {
-        color: #ffffff;
-        font-weight: bold;
+        background: rgba($success-color, 0.1);
+        color: $success-color;
       }
 
       &.invalid {
-        color: #ffffff;
-        font-weight: bold;
+        background: rgba($danger-color, 0.2);
+        color: $danger-color;
       }
     }
   }
