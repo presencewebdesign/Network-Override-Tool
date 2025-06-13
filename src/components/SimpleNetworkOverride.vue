@@ -129,7 +129,9 @@
               <span class="saved-status">🔄 Active</span>
             </div>
           </div>
-          <button @click="clearAllOverrides" class="clear-btn">🗑️ Clear All Overrides</button>
+          <button v-if="hasSavedOverride" @click="clearAllOverrides" class="clear-btn">
+            Clear All Overrides
+          </button>
         </div>
 
         <!-- Network Requests Monitor -->
@@ -248,6 +250,7 @@ const loading = ref(false)
 const savedOverrides = ref([]) // Track saved override files
 const lastApiResponse = ref(null) // Track the last API response to show in UI
 const userProfileData = ref(null) // Track user profile data for UI display
+const hasSavedOverride = ref(false) // Track if an override has been saved
 
 // Watch for external requests and merge them
 watch(
@@ -380,6 +383,7 @@ const clearAllOverrides = async () => {
   overrides.clear()
   savedOverrides.value = []
   localStorage.removeItem('networkOverrides')
+  hasSavedOverride.value = false // Reset to false when all overrides are cleared
 
   // Update all requests to show they're no longer overridden
   requests.value.forEach((request) => {
@@ -729,6 +733,7 @@ const saveOverride = async () => {
 
     // Mark request as overridden
     selectedRequest.value.isOverridden = true
+    hasSavedOverride.value = true // Set to true when an override is saved
 
     console.log('✅ Override saved for:', url)
     emit('overrides-changed', savedOverrides.value.length)
@@ -886,9 +891,13 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.simple-network-override {
-  @import '../styles/colors';
+@import '../styles/colors';
+@import '../styles/mixins';
 
+// Variables
+$primary-color: #0ea5e9;
+
+.simple-network-override {
   width: 100%;
   height: 100%;
   display: flex;
@@ -1328,20 +1337,36 @@ onUnmounted(() => {
   }
 
   .override-btn {
-    background: $color-green-600;
-    color: $color-white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-
-    &.active {
-      background: $color-red-600;
-    }
+    @include button-base;
+    background: $success-color;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 
     &:hover {
-      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      opacity: 1;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    &.active {
+      background: $danger-color;
+      animation: pulse 2s infinite;
+
+      &:hover {
+        background: darken($danger-color, 5%);
+      }
     }
   }
 
@@ -1525,6 +1550,39 @@ onUnmounted(() => {
     font-weight: 500;
     line-height: 1.4;
   }
+
+  .clear-btn {
+    @include button-base;
+    background: $danger-color;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: darken($danger-color, 5%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    &::before {
+      content: '🗑️';
+      font-size: 16px;
+    }
+  }
 }
 
 @media (max-width: 1024px) {
@@ -1565,12 +1623,14 @@ onUnmounted(() => {
 }
 
 @keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
+  0% {
+    box-shadow: 0 0 0 0 rgba($danger-color, 0.4);
   }
-  50% {
-    opacity: 0.7;
+  70% {
+    box-shadow: 0 0 0 6px rgba($danger-color, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($danger-color, 0);
   }
 }
 </style>
