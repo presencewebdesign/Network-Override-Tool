@@ -136,6 +136,7 @@ Visit `/widget` route for a complete demo with:
 src/
 ├── components/
 │   ├── NetworkOverrideWidget.vue    # Main floating widget
+│   ├── NetworkOverrideTool.vue      # Core override tool implementation
 │   └── SimpleNetworkOverride.vue    # Core override functionality
 ├── views/
 │   ├── HomeView.vue                 # Standard app view
