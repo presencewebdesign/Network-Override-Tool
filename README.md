@@ -42,7 +42,30 @@ npm install
 npm run dev
 ```
 
-The widget will be available at: `http://localhost:5174/widget`
+The widget will be available at: `http://localhost:5173/widget` (port may vary)
+
+### Requirements
+
+- Node.js 16.x or higher
+- npm 7.x or higher
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables (if needed):
+
+```env
+VITE_API_BASE_URL=your_api_base_url
+```
+
+### Testing
+
+```sh
+# Run unit tests
+npm run test
+
+# Run tests with coverage
+npm run test:coverage
+```
 
 ### Production Build
 
