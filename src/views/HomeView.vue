@@ -4,7 +4,6 @@ import SimpleNetworkOverride from '../components/SimpleNetworkOverride.vue'
 
 <template>
   <main class="home-main">
-    helloß
     <SimpleNetworkOverride />
   </main>
 </template>
