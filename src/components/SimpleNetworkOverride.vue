@@ -608,6 +608,19 @@ const setupInterception = () => {
 
 // Log network request
 const logRequest = (url, options, response, startTime, data, isOverridden) => {
+  // Check if we already have this request logged
+  const existingRequest = requests.value.find(
+    (req) => req.url === url && req.timestamp === new Date().toLocaleTimeString(),
+  )
+  if (existingRequest) {
+    // Update the existing request instead of creating a new one
+    existingRequest.status = response.status
+    existingRequest.statusText = response.statusText
+    existingRequest.originalResponse = data
+    existingRequest.isOverridden = isOverridden
+    return
+  }
+
   const request = {
     id: Date.now() + Math.random(),
     url: url,
@@ -890,9 +903,10 @@ onUnmounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-@import '../styles/colors';
-@import '../styles/mixins';
+<style lang="scss">
+@use 'sass:color';
+@use '../styles/colors' as *;
+@use '../styles/mixins' as *;
 
 // Variables
 $primary-color: #0ea5e9;
@@ -1361,11 +1375,11 @@ $primary-color: #0ea5e9;
     }
 
     &.active {
-      background: $danger-color;
+      background: color.adjust($danger-color, $lightness: -5%);
       animation: pulse 2s infinite;
 
       &:hover {
-        background: darken($danger-color, 5%);
+        background: color.adjust($danger-color, $lightness: -10%);
       }
     }
   }
@@ -1568,7 +1582,7 @@ $primary-color: #0ea5e9;
     transition: all 0.2s ease;
 
     &:hover {
-      background: darken($danger-color, 5%);
+      background: color.adjust($danger-color, $lightness: -5%);
       transform: translateY(-1px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }

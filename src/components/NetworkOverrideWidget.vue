@@ -211,8 +211,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-// Variables
-@import '../styles/colors';
+@use '../styles/colors' as *;
 
 // Mixins
 @mixin flex-center {
